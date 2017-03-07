@@ -1,0 +1,35 @@
+@font-face {
+  font-family: 'Century Schoolbook';
+  src: ~"url('@{static-font-path}censcbk-webfont.eot')";
+  src: local('☺'),~"url('@{static-font-path}censcbk-webfont.eot?#iefix') format('embedded-opentype')",
+  ~"url('@{static-font-path}censcbk-webfont.woff') format('woff')",
+  ~"url('@{static-font-path}censcbk-webfont.ttf') format('truetype')";
+  font-weight: 300;
+  font-style: normal;
+}
+
+@import "../vendor/kent-font/build/less/master";
+
+@font-face {
+  font-family:"kentfont";
+  src:url("@{icon-font-path}kentfont.eot");
+  src:url("@{icon-font-path}kentfont.eot?#iefix") format("embedded-opentype"),
+  url("@{icon-font-path}kentfont.woff") format("woff"),
+  url("@{icon-font-path}kentfont.ttf") format("truetype"),
+  url("@{icon-font-path}kentfont.svg?#kentfont") format("svg");
+  font-weight:normal;
+  font-style:normal;
+}
+
+@import "../vendor/font-awesome/less/variables.less";
+@import "../vendor/font-awesome/less/mixins.less";
+@import "../vendor/font-awesome/less/path.less";
+@import "../vendor/font-awesome/less/core.less";
+@import "../vendor/font-awesome/less/larger.less";
+@import "../vendor/font-awesome/less/fixed-width.less";
+@import "../vendor/font-awesome/less/list.less";
+@import "../vendor/font-awesome/less/bordered-pulled.less";
+@import "../vendor/font-awesome/less/animated.less";
+@import "../vendor/font-awesome/less/rotated-flipped.less";
+@import "../vendor/font-awesome/less/stacked.less";
+@import "../vendor/font-awesome/less/icons.less";

@@ -1,0 +1,45 @@
+.add_button {
+	border: none;
+	padding: 0 0.5em;
+	color: @brand-primary;
+	background-color: transparent;
+	cursor: pointer;
+    font-size: 20px;
+	&:hover {
+		background-color: @brand-lightest;
+	}
+}
+
+.jstree {
+	ul.jstree-children {
+		li.jstree-node {
+			min-height: 2em;
+			line-height: 2em;
+			a.jstree-anchor{
+                height:25px;
+				cursor: pointer;
+				.jstree-icon{
+					cursor: move;
+                    font-size: 21px;
+				}
+				button.btn-add-child-poi {
+					margin-left: 0.5em;
+                    position: relative;
+                    top: 1px;
+					.add_button;
+				}
+			}
+		}
+	}
+}
+
+.poi-panel{
+	.btn-add-top-level-poi {
+		.add_button;
+	}	
+}
+
+.scrollable-pois {
+	max-height:600px;
+	overflow:auto;
+}

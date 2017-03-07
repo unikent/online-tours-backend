@@ -1,0 +1,16 @@
+language: php
+php:
+  - 5.5
+services:
+  - mysql
+branches:
+  except:
+    - master
+before_script:
+  - cp .env.travis .env
+  - composer install --prefer-dist --dev
+  - mysql -e 'create database onlinetours;'
+  - php artisan migrate
+script: "phpunit"
+notifications:
+  email: false

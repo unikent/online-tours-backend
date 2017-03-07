@@ -1,0 +1,25 @@
+.tour-panel {
+
+    .panel-heading {
+        overflow: auto;
+    }
+
+    .panel-body {
+        
+    }
+
+    .zone-toggle {
+        cursor: pointer;
+        font-size: 1.5em;
+        &:after{
+          content: @fa-var-chevron-up;
+        }
+
+        &.collapsed{
+          &:after{
+            content: @fa-var-chevron-down;
+          }
+        }
+
+    }
+}

@@ -1,0 +1,358 @@
+@import (reference)"../../vendor/font-awesome/less/font-awesome.less";
+@dz-error-message-color: rgb(190, 38, 38);
+@dz-image-size: 320px;
+@dz-width: @dz-image-size + 20px;
+@dz-mark-image-height: 54px;
+@dz-mark-image-width: 54px;
+@dz-image-border-radius: 20px;
+
+@keyframes passing-through {
+  0% {
+    opacity: 0;
+    transform: translateY(40px); }
+  30%, 70% {
+    opacity: 1;
+    transform: translateY(0px); }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px); }
+}
+
+@keyframes slide-in {
+  0% {
+    opacity: 0;
+    transform: translateY(40px); }
+  30% {
+    opacity: 1;
+    transform: translateY(0px); }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1); }
+  10% {
+    transform: scale(1.1); }
+  20% {
+    transform: scale(1); }
+}
+
+.dropzone-wrap{
+
+  min-height: 150px;
+  border: 2px dashed rgba(0, 0, 0, 0.3);
+  background: white;
+  padding: 20px 20px;
+
+  *{
+    box-sizing: border-box;
+  }
+
+  &.dz-clickable {
+    cursor: pointer;
+    *{
+      cursor: default;
+    }
+    .dz-message{
+      &,*{
+        cursor: pointer;
+      }
+    }
+  }
+
+  &.dz-started{
+    .dz-message {
+      display: none; }
+  }
+
+  &.dz-drag-hover {
+    border-style: solid;
+    .dz-message {
+      opacity: 0.5;
+    }
+  }
+
+  .dz-message {
+    color: rgba(0, 0, 0, 0.3);
+    font-size: 2em;
+    margin: 1.5em 0;
+    text-align: center;
+  }
+
+  .dz-preview {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    margin: 16px;
+    min-height: 100px;
+    &:hover {
+      // Making sure that always the hovered preview element is on top
+      z-index: 1000;
+      .dz-details {
+        opacity: 1;
+      }
+    }
+    &.dz-file-preview {
+      .dz-image {
+        border-radius: @dz-image-border-radius;
+        background: #999;
+        background: linear-gradient(to bottom, #eee, #ddd);
+      }
+      .dz-details {
+        opacity: 1;
+      }
+    }
+    &.dz-image-preview {
+      background: white;
+      .dz-details {
+        transition: opacity 0.2s linear;
+      }
+    }
+    .dz-remove {
+      opacity: 0;
+      cursor: pointer;
+      display: block;
+      position: absolute;
+      visibility: hidden;
+      top: 0;
+      z-index: 9999;
+      .fa-icon;
+      color: rgba(145, 0, 0, 0.85);
+      font-size: 2.5em;
+      &:before{
+        content:@fa-var-times-circle;
+        visibility: visible;
+        position: absolute;
+        margin: 4px 5px;
+      }
+    }
+    &:hover{
+      .dz-details,.dz-remove {
+        opacity: 1;
+      }
+    }
+    .dz-details {
+      z-index: 20;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      font-size: 13px;
+      min-width: 100%;
+      max-width: 100%;
+      padding: 2em 1em;
+      text-align: center;
+      color: rgba(0, 0, 0, 0.9);
+      //$width: 120px;
+      line-height: 150%;
+      .dz-size {
+        margin-bottom: 1em;
+        font-size: 16px;
+      }
+      .dz-filename {
+        white-space: nowrap;
+        &:hover {
+          span {
+            border: 1px solid rgba(200, 200, 200, 0.8);
+            background-color: rgba(255, 255, 255, 0.8);
+          }
+        }
+        &:not(:hover) {
+          span {
+            border: 1px solid transparent;
+          }
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+      .dz-filename, .dz-size {
+        span {
+          background-color: rgba(255, 255, 255, 0.4);
+          padding: 0 0.4em;
+          border-radius: 3px;
+        }
+      }
+    }
+    &:hover {
+      .dz-image {
+        // opacity: 0.8;
+        img {
+          transform: scale(1.05, 1.05); // Getting rid of that white bleed-in
+          filter: blur(8px); // Getting rid of that white bleed-in
+        }
+      }
+    }
+    .dz-image {
+      border-radius: @dz-image-border-radius;
+      overflow: hidden;
+      //width: @dz-image-size;
+      //height: @dz-image-size;
+      position: relative;
+      display: block;
+      z-index: 10;
+      img {
+        display: block;
+      }
+    }
+    &.dz-success {
+      .dz-success-mark {
+        animation: passing-through 3s cubic-bezier(0.770, 0.000, 0.175, 1.000);
+      }
+    }
+    &.dz-error {
+      .dz-error-mark {
+        opacity: 1;
+        animation: slide-in 3s cubic-bezier(0.770, 0.000, 0.175, 1.000);
+      }
+    }
+    .dz-success-mark, .dz-error-mark {
+
+      pointer-events: none;
+      opacity: 0;
+      z-index: 500;
+      position: absolute;
+      display: block;
+      top: 50%;
+      left: 50%;
+      margin-left: -(@dz-mark-image-width/2);
+      margin-top: -(@dz-mark-image-height/2);
+      svg {
+        display: block;
+        width: @dz-mark-image-width;
+        height: @dz-mark-image-height;
+      }
+    }
+    &.dz-processing .dz-progress {
+      opacity: 1;
+      transition: all 0.2s linear;
+    }
+    &.dz-complete .dz-progress {
+      opacity: 0;
+      transition: opacity 0.4s ease-in;
+    }
+    &:not(.dz-processing) {
+      .dz-progress {
+        animation: pulse 6s ease infinite;
+      }
+    }
+    .dz-progress {
+      opacity: 0;
+      z-index: 1000;
+      pointer-events: none;
+      position: absolute;
+      height: 16px;
+      left: 50%;
+      top: 50%;
+      margin-top: -8px;
+      width: 80px;
+      margin-left: -40px;
+      // border: 2px solid #333;
+      background: rgba(255, 255, 255, 0.9);
+      // Fix for chrome bug: https://code.google.com/p/chromium/issues/detail?id=157218
+      -webkit-transform: scale(1);
+      border-radius: 8px;
+      overflow: hidden;
+      .dz-upload {
+        background: #333;
+        background: linear-gradient(to bottom, #666, #444);
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        transition: width 300ms ease-in-out;
+      }
+    }
+    &.dz-error {
+      .dz-error-message {
+        display: block;
+      }
+      &:hover .dz-error-message {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+    .dz-error-message {
+      pointer-events: none;
+      z-index: 1000;
+      position: absolute;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: 8px;
+      font-size: 13px;
+      top: @dz-image-size + 10px;
+      left: -10px;
+      width: @dz-width;
+      background: @dz-error-message-color;
+      background: linear-gradient(to bottom, @dz-error-message-color, darken(@dz-error-message-color, 5%));
+      padding: 0.5em 1.2em;
+      color: white;
+      // The triangle pointing up
+      &:after {
+        content: '';
+        position: absolute;
+        top: -6px;
+        left: @dz-width / 2 - 6px;
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 6px solid @dz-error-message-color;
+      }
+    }
+  }
+}
+
+
+.content-image .dropzone-wrap{
+  padding: 0;
+
+  &.dz-max-files-reached{
+    border:none;
+  }
+  .dz-preview{
+    margin: 0;
+  }
+
+  &.dz-processing{
+    .dz-preview{
+      .dz-progress {
+        display: block;
+      }
+    }
+  }
+
+}
+
+.content-audio .dropzone-wrap{
+  padding: 0 0 40px;
+
+  &.dz-max-files-reached{
+    border:none;
+  }
+
+  .dz-preview{
+    margin: 0 0 5px 5px;
+    .dz-image{
+      border-radius: 0;
+      max-height: 129px;
+      img{
+        border-radius: @dz-image-border-radius;
+      }
+    }
+    audio{
+      width: 100%;
+      display: inline-block;
+    }
+  }
+
+  &.dz-processing{
+    .dz-preview{
+      .dz-progress {
+        display: block;
+      }
+    }
+  }
+
+}
+

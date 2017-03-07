@@ -1,0 +1,13 @@
+.DS_Store
+bin/
+/vendor/
+/resources/assets/vendor/
+composer.phar
+.env
+.idea/
+node_modules/
+config.js
+
+public/js/routes.js
+_ide_helper.php
+public/media
